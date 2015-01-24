@@ -10,7 +10,7 @@ function leap_controller(f, callback) {
     frame.hands.forEach(function (hand) {
       f(hand.type, hand.screenPosition(), hand.roll());
     });
-  }).use("screenPosition", {scale: 0.25});
+  }).use("screenPosition", {scale: 0.3});
 
   controller.addListener("deviceAttached", function (e) {
     callback && callback("attached", e);
