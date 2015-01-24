@@ -4,6 +4,7 @@ var config = {
   css: 'src/css',
   html: 'src/html/*.html',
   dist: './build',
+  img: ['src/img/*.png', 'src/img/*.jpg'],
   webpack: {
     entry: './src/js/index.js',
     output: {
@@ -19,6 +20,11 @@ gulp.task('concat', function(){
     gulp.src(config.webpack.entry)
         .pipe(webpack(config.webpack))
         .pipe(gulp.dest(config.dist));
+});
+
+gulp.task('img', function(){
+  gulp.src(config.img)
+      .pipe(gulp.dest(config.dist + '/img'));
 });
 
 gulp.task('html', function(){
