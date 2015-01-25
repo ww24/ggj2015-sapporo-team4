@@ -1,17 +1,12 @@
 var collected_jk = {
-  "jk_id":0,
+  "jk_id":1,
   "score":10214,
   "titles":[
-    0,3,4
+    1,3,4
   ],
   "date":new Date()
 };
 
-var collected_jks = [
-  collected_jk,
-  collected_jk,
-  collected_jk
-];
 
 var parsed = queryString.parse(location.search);
 
@@ -23,32 +18,34 @@ catch(e) {
 }
 
 if(query["type"] == "add"){
-  addJK(query["jk"]);
+  addJK(collected_jk);
 }
 
 function addJK(jk){
-  if(verifyJK() == false){
+  if(jk == undefined || !verifyJK(jk)){
     alert("JK error");
     return;
   }
 
   var jks = JSON.parse(localStorage.getItem("jks"));
+  if(jks == null){
+    jks = [];
+  }
   jks.push(jk);
   localStorage.setItem("jks", JSON.stringify(jks));
 }
 
 function verifyJK(jk){
-  if(
-      jk["jk_id"] == undefined ||
-      jk["score"] == undefined ||
-      jk["titles"] == undefined ||
-      jk["date"] == undefined){
+  if(jk["jk_id"] == undefined || jk["score"] == undefined || jk["titles"] == undefined || jk["date"] == undefined){
     return false;
   }
-  return jk;
+  return true;
 }
 
 jQuery(document).ready(function(){
+
+  var collected_jks = JSON.parse(localStorage.getItem("jks"));
+
   var shelf_num = Math.ceil(collected_jks.length / 6);
   var jk_id = 0;
 
@@ -62,11 +59,13 @@ jQuery(document).ready(function(){
         break;
       }
       var box = shelf.find(".box"+(j+1)+" > div");
+      var jk = collected_jks[jk_id];
+
       box.css("display", "block");
 
       box.find(".jk-img").src = "replace:collected_jk.png";
-      //box.find(".jk-img").attr("src", "replace:collected_jk.png");
-      box.find(".data").text("replace:collected_jk.data");
+      box.find(".jk-img").attr("src", get_jk_img(jk));
+      box.find(".data").text(JSON.stringify(jk));
       //data-hoge　使おうかなぁ・・・
 
 
@@ -141,9 +140,27 @@ function showOverlay(target){
   if(text == ""){
     return;
   }
+  else{
+    var jk = JSON.parse(text);
+  }
   jQuery("#overlay").css("display","block");
 
   jQuery("#overlay #jk-img img").attr("src", target.find("img").attr("src"));
+  jQuery("#overlay #jk-name").text(get_jk_name(jk));
+  
+  jQuery("#overlay #jk-date").text(get_jk_date(jk));
+
+  jQuery("#overlay #jk-score").text(get_jk_score(jk));
+
+  var title = jQuery("#overlay #jk-title");
+  var titles = get_jk_titles(jk);
+  for(var i = 0; i < titles.length; i++){
+    var li = jQuery("<li />");
+    li.text(titles[i]);
+    title.append(li);
+  }
+
+
 }
 
 
@@ -152,6 +169,10 @@ var titles = {
   1:{"name":"称号の説明"},
   2:{"name":"称号の説明"},
   3:{"name":"称号の説明"},
+  4:{"name":"称号の説明"},
+  5:{"name":"称号の説明"},
+  6:{"name":"称号の説明"},
+  7:{"name":"称号の説明"},
 };
 
 var jks = {
@@ -161,23 +182,54 @@ var jks = {
   3:{"name":"jk-name"},
 };
 
-
-function get_jk_name(jk_id, score){
-  var file_name = "images/" + jk_id + "-";
-  if(score < 10000){
-    file_name += "C";
+function get_jk_titles(jk){
+  var ret_titles = [];
+  for(var i = 0; i < jk["titles"].length; i++){
+    var title = jk["titles"][i];
+    ret_titles.push(titles[title]["name"]);
   }
-  else if(score < 30000){
-    file_name += "B";
+  return ret_titles;
+}
+
+function get_jk_score(jk){
+  return jk["score"];
+}
+
+function get_jk_date(jk){
+  var date = new Date(jk["date"]);
+
+  y = date.getFullYear();
+  m = date.getMonth()+1;
+  d = date.getDate();
+  return y + "/" + m + "/" + d 
+}
+
+function get_jk_name(jk){
+  return jks[jk["jk_id"]]["name"];
+}
+
+function get_jk_img(jk){
+  var jk_id = jk["jk_id"];
+  var score = jk["score"];
+  if(String(jk_id).length == 1){
+    jk_id = "0" + jk_id;
+  }
+  var file_name = "images/chara/c" + jk_id + "_";
+  if(score < 5000){
+    file_name += "1";
+  }
+  else if(score < 10000){
+    file_name += "2";
   }
   else {
-    file_name += "C";
+    file_name += "3";
   }
   file_name += ".png";
 
   return file_name;
-};
 
+};
+/*
 var collected_jk = {
   "jk_id":0,
   "score":10214,
@@ -192,6 +244,5 @@ var collected_jks = [
   collected_jk,
   collected_jk
 ];
+*/
 
-
-file_name = "[id]-[score_rank].png"
