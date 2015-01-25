@@ -15,19 +15,23 @@ $(function () {
     var game = game_container();
     stage.addChild(game);
 
+    var flag = true;
     new AudioPlayer([
         "assets/sounds/bgm.webm",
         "assets/sounds/pop.webm",
         "assets/sounds/hop.webm",
         "assets/sounds/money.webm",
-        "assets/sounds/cheer.webm"
+        "assets/sounds/cheer.webm",
+        //"assets/sounds/doorchime.webm"
     ]).promise.then(function (sounds) {
       // load leap motion controller
       var leap = leap_container(function () {
         // focus
-        sounds.pop.start(0);
-        sounds.bgm.start(1);
-
+        if (flag) {
+          flag = false;
+          sounds.pop.start(0);
+          sounds.bgm.start(2);
+        }
       }, function () {
         // blur
       });
