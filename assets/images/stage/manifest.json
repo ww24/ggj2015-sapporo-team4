@@ -1,0 +1,19 @@
+[{
+  "id": "exit",
+  "src": "assets/images/stage/exit.png"
+}, {
+  "id": "hole",
+  "src": "assets/images/stage/hole.png"
+}, {
+  "id": "money",
+  "src": "assets/images/stage/money.png"
+}, {
+  "id": "obj1",
+  "src": "assets/images/stage/obj1.png"
+}, {
+  "id": "obj2",
+  "src": "assets/images/stage/obj2.png"
+}, {
+  "id": "obj3",
+  "src": "assets/images/stage/obj3.png"
+}]
