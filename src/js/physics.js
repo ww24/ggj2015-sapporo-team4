@@ -4,7 +4,7 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2;
 var objectBuilderFactory = require('./object_builder');
 var handsHitListener = require('./hands_hit_listener')
 
-var CANVAS = 'gameCanvas';
+var CANVAS = 'stage';
 var WORLD_SCALE = 60;
 var GRAVITY = 9.8;
 
@@ -12,11 +12,6 @@ var physicsFactory = function(images){
 
   var world = new Box2D.Dynamics.b2World(new b2Vec2(0, GRAVITY), true);
   var objectBuilder = objectBuilderFactory(images, world, WORLD_SCALE);
-
-  var leftHand = null;
-  var rightHand = null;
-  var character;
-
 
   var canvasElement = document.getElementById(CANVAS);
   if(!canvasElement){
@@ -79,19 +74,6 @@ var physicsFactory = function(images){
     world.Step(1/60, 10, 10);
     stage.update();
   };
-
-  this.setHands = function(left, right){
-    leftHand = left;
-    rightHand = right;
-  //  world.SetContactListener(new handsHitListener(left, right, character));
-  };
-
-  this.setCharacter = function(c){
-    character = c;
-    //world.SetContactListener(new handsHitListener(leftHand, rightHand, character));
-  };
-
-
 };
 
 var physics = function(fn){
@@ -103,7 +85,7 @@ var physics = function(fn){
     var physics = new physicsFactory(images);
     fn(physics);
   });
-  queue.loadManifest('json/manifest.json');
+  queue.loadManifest('assets/images/stage/manifest.json');
 };
 
 module.exports = physics;
