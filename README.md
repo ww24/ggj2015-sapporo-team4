@@ -1,6 +1,4 @@
-JK ぽんぽん (仮)
-==============
-ggj2015-sapporo-team4
-=====================
+JK ぽんぽん
+==========
 
-Global Game Jam 2015 Sapporo Team4 
+(JK ぽんぽん (JK Pon-pon) | Global Game Jam)[http://globalgamejam.org/2015/games/jk-%E3%81%BD%E3%82%93%E3%81%BD%E3%82%93-jk-pon-pon]
