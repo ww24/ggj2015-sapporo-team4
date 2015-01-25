@@ -7,26 +7,33 @@
 $(function () {
   var stage = new createjs.Stage("stage");
 
-  var game = game_container();
-  stage.addChild(game);
+  var logo = logo_container();
+  stage.addChild(logo);
+  logo.addEventListener("click", function () {
+    logo.visible = false;
 
-  new AudioPlayer([
-      "assets/sounds/bgm.webm",
-      "assets/sounds/pop.webm",
-      "assets/sounds/hop.webm",
-      "assets/sounds/money.webm",
-      "assets/sounds/cheer.webm"
-  ]).promise.then(function (sounds) {
-    // load leap motion controller
-    var leap = leap_container(function () {
-      // focus
-      sounds.pop.start(0);
-      sounds.bgm.start(1);
+    var game = game_container();
+    stage.addChild(game);
 
-    }, function () {
-      // blur
+    new AudioPlayer([
+        "assets/sounds/bgm.webm",
+        "assets/sounds/pop.webm",
+        "assets/sounds/hop.webm",
+        "assets/sounds/money.webm",
+        "assets/sounds/cheer.webm"
+    ]).promise.then(function (sounds) {
+      // load leap motion controller
+      var leap = leap_container(function () {
+        // focus
+        sounds.pop.start(0);
+        sounds.bgm.start(1);
+
+      }, function () {
+        // blur
+      });
+      stage.addChild(leap);
     });
-    stage.addChild(leap);
+
   });
 
   // 30 フレームおきに描画更新

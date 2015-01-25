@@ -2,9 +2,8 @@
  * Leap Motion Controller
  *
  */
-/* globals Leap, createjs */
+/* globals Leap, createjs, tutorial_container */
 /* exported leap_container */
-
 
 function leap_container(focus, blur) {
 
@@ -48,10 +47,14 @@ function leap_container(focus, blur) {
     hands.right[1].visible = false;
     container.addChild(hands.right[1]);
 
+    var tutorial = tutorial_container();
+    container.addChild(tutorial);
+
     var active_hand_length = 0;
     Leap.loop(function (frame) {
       if (active_hand_length < 2 && frame.hands.length === 2) {
         focus && focus();
+        tutorial.visible = false;
       } else if (active_hand_length === 2 && frame.hands.length < 2) {
         blur && blur();
       }
