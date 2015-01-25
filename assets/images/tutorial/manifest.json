@@ -1,0 +1,13 @@
+[{
+  "id": "tuto",
+  "src": "assets/images/tutorial/tuto.png"
+}, {
+  "id": "arrow",
+  "src": "assets/images/tutorial/arrow.png"
+}, {
+  "id": "leap_on",
+  "src": "assets/images/tutorial/leap_on.png"
+}, {
+  "id": "leap_off",
+  "src": "assets/images/tutorial/leap_off.png"
+}]
