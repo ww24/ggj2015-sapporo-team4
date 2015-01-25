@@ -44,6 +44,9 @@ function verifyJK(jk){
 jQuery(document).ready(function(){
 
   var collected_jks = JSON.parse(localStorage.getItem("jks"));
+  if(collected_jks == null){
+    collected_jks = [];
+  }
 
   var shelf_num = Math.max(1, Math.ceil(collected_jks.length / 6));
   var jk_id = 0;
