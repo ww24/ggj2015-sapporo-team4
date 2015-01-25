@@ -12,16 +12,19 @@ $(function () {
 
   new AudioPlayer([
       "assets/sounds/bgm.webm",
-      "assets/sounds/fall_down.webm",
+      "assets/sounds/pop.webm",
+      "assets/sounds/hop.webm",
+      "assets/sounds/money.webm",
       "assets/sounds/cheer.webm"
   ]).promise.then(function (sounds) {
     // load leap motion controller
     var leap = leap_container(function () {
       // focus
-      sounds.bgm.start(0);
+      sounds.pop.start(0);
+      sounds.bgm.start(1);
+
     }, function () {
-      // blur (仮)
-      sounds.bgm.fadeOut(5);
+      // blur
     });
     stage.addChild(leap);
   });
