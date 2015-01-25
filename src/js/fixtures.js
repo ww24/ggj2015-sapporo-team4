@@ -1,20 +1,22 @@
 var fixtures = {
     "hand": {
-      "collision": true,
+      "density": 20,
+      "friction": 0.5,
+      "restitution": 0
+    },
+    "jk": {
+      "density": 10,
+      "friction": 0.5,
+      "restitution": 1.2
+    },
+    "hazard": {
       "density": 1,
       "friction": 0.5,
       "restitution": 0
     },
-    "hazard": {
-      "collision": true,
-      "density": 40,
+    "wall": {
+      "density": 1,
       "friction": 0.5,
-      "restitution": 1.2
-    },
-    "background": {
-      "collision": false,
-      "density": 0,
-      "friction": 0,
       "restitution": 0
     }
 };

@@ -5,7 +5,7 @@ var objectBuilderFactory = require('./object_builder');
 var handsHitListener = require('./hands_hit_listener')
 
 var CANVAS = 'gameCanvas';
-var WORLD_SCALE = 30;
+var WORLD_SCALE = 60;
 var GRAVITY = 9.8;
 
 var physicsFactory = function(images){
@@ -25,6 +25,19 @@ var physicsFactory = function(images){
 
   var stage = new createjs.Stage(canvasElement);
 
+  var wrapBody = function(obj){
+    obj.pos = function(param){
+      if(param){
+        obj.SetPosition({x: param.x / WORLD_SCALE, y: param.y / WORLD_SCALE});
+      }
+      else{
+        var p = obj.GetPosition();
+        return {x: p.x * WORLD_SCALE, y: p.y * WORLD_SCALE};
+      }
+    };
+    return obj;
+  };
+
 
   this.addObject = function(template){
     var obj = objectBuilder(template);
@@ -32,7 +45,7 @@ var physicsFactory = function(images){
     if(userData){
       stage.addChild(obj.GetUserData());
     }
-    return obj;
+    return wrapBody(obj);
   };
 
   this.removeObject = function(obj){
@@ -62,12 +75,12 @@ var physicsFactory = function(images){
   this.setHands = function(left, right){
     leftHand = left;
     rightHand = right;
-    world.SetContactListener(new handsHitListener(left, right, character));
+  //  world.SetContactListener(new handsHitListener(left, right, character));
   };
 
   this.setCharacter = function(c){
     character = c;
-    world.SetContactListener(new handsHitListener(leftHand, rightHand, character));
+    //world.SetContactListener(new handsHitListener(leftHand, rightHand, character));
   };
 
 

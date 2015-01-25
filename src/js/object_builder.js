@@ -21,6 +21,7 @@ var b2PolygonShape = box2d.b2PolygonShape;
 
 module.exports = function(images, world, scale){
   return function(template){
+
     var bodyDef = new b2BodyDef();
     bodyDef.type = b2Body[template.type];
     bodyDef.position.Set(template.pos.x / scale, template.pos.y / scale);
