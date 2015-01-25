@@ -9,7 +9,7 @@ var config = {
   webpack: {
     entry: './src/js/index.js',
     output: {
-      filename: 'JK.js'
+      filename: 'physics.js'
     }
   }
 };
