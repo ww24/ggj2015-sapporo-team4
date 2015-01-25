@@ -1,0 +1,6 @@
+{
+  "manifest":
+  [
+    {"src":"img/hazard/cat.jpg","id":"cat"}
+  ]
+}
