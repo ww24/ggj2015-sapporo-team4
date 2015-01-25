@@ -20,7 +20,7 @@ $(function () {
       // focus
       sounds.bgm.start(0);
     }, function () {
-      // blur
+      // blur (仮)
       sounds.bgm.fadeOut(5);
     });
     stage.addChild(leap);

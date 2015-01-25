@@ -69,10 +69,11 @@ function AudioPlayer(urls) {
       sounds[names[index]] = {
         source: null,
         gain: null,
-        start: function (time) {
+        start: function (time, loop) {
           this.source = context.createBufferSource();
           this.gain = context.createGain();
           this.source.buffer = buffer;
+          this.source.loop = !! loop;
           this.source.connect(this.gain);
           this.gain.connect(context.destination);
           this.source.start(time || 0);
