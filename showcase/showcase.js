@@ -58,21 +58,19 @@ jQuery(document).ready(function(){
     var shelf = jQuery("#shelf-source").clone(true);
     shelf.css("display","block");
     jQuery("#showcase").append(shelf);
-    e=shelf;
     for(var j = 0; j < 6; j++){
       if(i*6+j >= collected_jks.length){
         break;
       }
+      console.log(jk_id);
       var box = shelf.find(".box"+(j+1)+" > div");
       var jk = collected_jks[jk_id];
 
       box.css("display", "block");
 
-      box.find(".jk-img").src = "replace:collected_jk.png";
       box.find(".jk-img").attr("src", get_jk_img(jk));
       box.find(".data").text(JSON.stringify(jk));
       //data-hoge　使おうかなぁ・・・
-
 
       jk_id++;
     }
@@ -102,6 +100,9 @@ jQuery(document).ready(function(){
   });
 
   setShelfMargin();
+  setTimeout(function(){
+    setShelfMargin();
+  },50);
 
   $(window).resize(function(){
     setShelfMargin();
