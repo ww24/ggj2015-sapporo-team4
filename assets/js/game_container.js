@@ -43,7 +43,7 @@ function game_container() {
       framerate: 30,
       images: [queue.getResult("money")],
       frames: {
-        width: 140,
+        width: 160,
         height: 120
       },
       animations: {
