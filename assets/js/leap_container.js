@@ -3,9 +3,10 @@
  *
  */
 /* globals Leap, createjs */
-/* exported leapmotion */
+/* exported leap_container */
 
-function leapmotion() {
+
+function leap_container(focus, blur) {
 
   var container = new createjs.Container();
 
@@ -47,7 +48,15 @@ function leapmotion() {
     hands.right[1].visible = false;
     container.addChild(hands.right[1]);
 
+    var active_hand_length = 0;
     Leap.loop(function (frame) {
+      if (active_hand_length < 2 && frame.hands.length === 2) {
+        focus && focus();
+      } else if (active_hand_length === 2 && frame.hands.length < 2) {
+        blur && blur();
+      }
+      active_hand_length = frame.hands.length;
+
       frame.hands.forEach(function (hand) {
         var type = hand.type;
         var position = hand.screenPosition();
