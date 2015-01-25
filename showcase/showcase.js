@@ -45,7 +45,7 @@ jQuery(document).ready(function(){
 
   var collected_jks = JSON.parse(localStorage.getItem("jks"));
 
-  var shelf_num = Math.max(0,Math.ceil(collected_jks.length / 6));
+  var shelf_num = Math.max(1, Math.ceil(collected_jks.length / 6));
   var jk_id = 0;
 
   for(var i = 0; i < shelf_num; i++){
