@@ -4,23 +4,29 @@ require 'json'
 
 ASSETS_FILE = 'src/js/assets.js'
 
-images = %w{*.png *jpg}.each_with_object([]) do |type, images|
-  images.concat(Dir.glob("./src/img/**/#{type}"))
+images = %w{*.png *jpg}.each_with_object(Hash.new(){|hash, key| hash[key] = [] }) do |type, images|
+  Dir.glob("./src/img/**/#{type}") do |file|
+    category = file.split('/')[-2]
+    images[category] << File.basename(file)
+  end
 end
 
-assets = images.each_with_object([]) do |image, assets|
-  basename = File.basename(image)
-  asset = {
-    :src => "img/" + basename,
-    :id => basename
-  }
-  assets << asset
+assets = []
+
+images.each do |category, images|
+  images.each do |image|
+    basename = File.basename(image)
+    shape = basename.split('_').last.split('.').first
+    asset = {
+      :src => "img/" + basename,
+      :id => basename,
+      :bodyType => shape,
+      :x => 0,
+      :y => 0,
+      :fixture => category
+    }
+    assets << asset
+  end
 end
 
-contents = <<EOS
-  var Assets = #{assets.to_json};
-  module.exports = Assets;
-EOS
-
-open(ASSETS_FILE, 'w').puts(contents)
-puts "wrote to #{ASSETS_FILE}"
+puts JSON.generate(assets)
