@@ -1,0 +1,28 @@
+{
+  "name": "JK.js",
+  "version": "1.0.0",
+  "description": "JK.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ww24/ggj2015-sapporo-team4"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ww24/ggj2015-sapporo-team4/issues"
+  },
+  "homepage": "https://github.com/ww24/ggj2015-sapporo-team4",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-webpack": "^1.1.2",
+    "gulp-webserver": "^0.9.0",
+    "rimraf": "^2.2.8"
+  },
+  "dependencies": {
+    "box2dweb-commonjs": "^2.1.0"
+  }
+}

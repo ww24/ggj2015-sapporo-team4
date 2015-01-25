@@ -19,7 +19,7 @@ function game_container() {
     exit.y = 800;
     container.addChild(exit);
 
-    var hole = new createjs.Bitmap(queue.getResult("hole"));
+    window.hole = new createjs.Bitmap(queue.getResult("hole"));
     hole.x = 1500;
     hole.y = 1000;
     container.addChild(hole);

@@ -6,7 +6,7 @@
 /* exported leap_container */
 
 
-function leap_container(focus, blur) {
+function leap_container(focus, blur, leftCallback, rightCallback) {
 
   var container = new createjs.Container();
 
@@ -69,7 +69,7 @@ function leap_container(focus, blur) {
           hand.y = Math.floor(position[1]) + 1200;
           hand.rotation = (rotation + index * ((type === "left") * 150 + (type === "right") * 210)) % 360;
         });
-        
+
         if (rotation > 110 && rotation < 250) {
           hand_list[0].visible = false;
           hand_list[1].visible = true;
@@ -77,7 +77,15 @@ function leap_container(focus, blur) {
           hand_list[0].visible = true;
           hand_list[1].visible = false;
         }
-        
+
+        //invoke callbacks for each hand
+        if(type == 0 && leftCallback){
+          leftCallback(hand);
+        }else if(type == 1 && rightCallback){
+          rightCallback(hand);
+        }
+
+
       }, function (status, info) {
         console.log(status, info);
       });
