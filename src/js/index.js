@@ -8,7 +8,7 @@
       }
 
       var jkTemplate = {
-        src: "cat",
+        src: "jk",
         pos: {
           x: 300,
           y: 100,
@@ -23,7 +23,7 @@
       var jk = physics.addObject(jkTemplate);
 
       var handTemplate = {
-        src: "cat",
+        src: "hand",
         pos: {
           x: 100,
           y: 100,

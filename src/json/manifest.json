@@ -1,6 +1,8 @@
 {
   "manifest":
   [
-    {"src":"img/hazard/cat.jpg","id":"cat"}
+    {"src":"img/hand/hand2_l.png","id":"hand"},
+    {"src":"img/hazard/obj1.png","id":"stop"},
+    {"src":"img/jk/chara2.png","id":"jk"}
   ]
 }

@@ -29,21 +29,24 @@ var WALL_WIDTH = 1;
     shape: "box",
     type: "b2_staticBody"
   };
-  // var ceil = {
-  //   pos: {
-  //     x: 1,
-  //     y: -50,
-  //     w: canvas.width,
-  //     h: 1,
-  //     angle: 0
-  //   },
-  //   fixture: "wall",
-  //   shape: "box",
-  //   type: "b2_staticBody"
-  // };
-
   objects.push(left);
   objects.push(right);
-  // objects.push(ceil);
+
+  for(var i = 0; i < 12; i++){
+    objects.push({
+      src: "stop",
+      pos: {
+        x: Math.random() * 1000,
+        y: Math.random() * 1000,
+        w: 0,
+        h: 0,
+        angle: 0
+      },
+      fixture: "wall",
+      shape: "box",
+      type: "b2_staticBody"
+    });
+  }
+
 })();
 module.exports = objects;
