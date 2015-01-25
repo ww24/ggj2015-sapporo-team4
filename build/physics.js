@@ -47,7 +47,6 @@
 	(function(window){
 	  window.physicsDone = function(fn){
 	    var p = __webpack_require__(1);
-	    console.log(p);
 	    p(fn);
 	  };
 	  window.physicsObject_templates = __webpack_require__(2);
@@ -94,6 +93,14 @@
 	        var p = obj.GetPosition();
 	        return {x: p.x * WORLD_SCALE, y: p.y * WORLD_SCALE};
 	      }
+	    };
+
+	    obj.angle = function(angle){
+	      if(angle){
+	        obj.SetAngle(angle);
+	      }else{
+	        return obj.GetAngle();
+	      };
 	    };
 	    return obj;
 	  };

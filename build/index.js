@@ -41,6 +41,7 @@ window.onload = function(){
     });
     //更新
     createjs.Ticker.addEventListener('tick', function(){
+
       physics.notifyTick();
       var jkPos = jk.pos();
       if(jkPos.y < -100 || jkPos.y > 1000){

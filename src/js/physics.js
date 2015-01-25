@@ -35,6 +35,14 @@ var physicsFactory = function(images){
         return {x: p.x * WORLD_SCALE, y: p.y * WORLD_SCALE};
       }
     };
+
+    obj.angle = function(angle){
+      if(angle){
+        obj.SetAngle(angle);
+      }else{
+        return obj.GetAngle();
+      };
+    };
     return obj;
   };
 
