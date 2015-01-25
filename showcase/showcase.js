@@ -2,10 +2,14 @@ var collected_jk = {
   "jk_id":1,
   "score":10214,
   "titles":[
+
   ],
   "date":new Date()
 };
 
+/*
+   http://jk.appcloud.info/showcase/showcase.html?data={"type":"add","jk_id":1,"score":8123,"date":"Sun Jan 25 2015 16:21:22 GMT+0900 (JST)"}
+*/
 
 var parsed = queryString.parse(location.search);
 
@@ -17,7 +21,7 @@ catch(e) {
 }
 
 if(query["type"] == "add"){
-  addJK(collected_jk);
+  addJK(query);
 }
 
 function addJK(jk){
@@ -35,14 +39,13 @@ function addJK(jk){
 }
 
 function verifyJK(jk){
-  if(jk["jk_id"] == undefined || jk["score"] == undefined || jk["titles"] == undefined || jk["date"] == undefined){
+  if(jk["jk_id"] == undefined || jk["score"] == undefined || jk["date"] == undefined){
     return false;
   }
   return true;
 }
 
 jQuery(document).ready(function(){
-
   var collected_jks = JSON.parse(localStorage.getItem("jks"));
   if(collected_jks == null){
     collected_jks = [];
@@ -161,8 +164,6 @@ function showOverlay(target){
     li.text(titles[i]);
     title.append(li);
   }
-
-
 }
 
 
@@ -177,12 +178,6 @@ var titles = {
   7:{"name":"称号の説明"},
 };
 
-var jks = {
-  0:{"name":"jk-name"},
-  1:{"name":"jk-name"},
-  2:{"name":"jk-name"},
-  3:{"name":"jk-name"},
-};
 
 function get_jk_titles(jk){
   var ret_titles = [];
