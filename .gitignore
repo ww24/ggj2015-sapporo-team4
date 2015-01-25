@@ -6,6 +6,18 @@
 # Windows
 Thumbs.db
 
+# Node.js
+*.log
+node_modules
+
+# MongoDB
+db/*
+!db/mongod.conf
+
+# Config
+config/*
+!config/default.yml
+
 # EditorConfig
 !.editorconfig
 ### https://raw.github.com/github/gitignore/master/Global/osx.gitignore
@@ -16,6 +28,7 @@ Thumbs.db
 
 # Icon must end with two \r
 Icon
+Icon
 
 # Thumbnails
 ._*
