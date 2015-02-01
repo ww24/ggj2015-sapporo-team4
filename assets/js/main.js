@@ -7,13 +7,22 @@
 $(function () {
   var stage = new createjs.Stage("stage");
 
+  // load containers
   var logo = logo_container();
+  var game = game_container();
+
   stage.addChild(logo);
+
   logo.addEventListener("click", function () {
     logo.visible = false;
 
-    var game = game_container();
     stage.addChild(game);
+
+    var jk = new createjs.Bitmap("assets/images/chara/c01_3.png");
+    jk.x = 100;
+    jk.y = 100;
+    jk.scaleX = jk.scaleY = 0.3;
+    game.addChild(jk);
 
     var flag = true;
     new AudioPlayer([
