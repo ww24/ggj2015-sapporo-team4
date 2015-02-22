@@ -29,6 +29,7 @@ function leap_container(focus, blur) {
       this.regY = 350;
       this.scaleX = this.scaleY = 0.3;
       this.alpha = 0.8;
+      this.visible = false;
     }
     Hand.prototype = new createjs.Bitmap();
 
@@ -60,6 +61,7 @@ function leap_container(focus, blur) {
       if (active_hand_length < 2 && frame.hands.length === 2) {
         focus && focus();
         tutorial.visible = false;
+        hands.right.visible = hands.left.visible = true;
       } else if (active_hand_length === 2 && frame.hands.length < 2) {
         blur && blur();
       }
@@ -95,7 +97,8 @@ function leap_container(focus, blur) {
 
         // physics
         hand_bodies[+ is_left].SetPosition(hand_obj.x * world.SCALE, hand_obj.y * world.SCALE);
-        
+        console.log(hand_obj.x * world.SCALE, hand_obj.y * world.SCALE);
+
       }, function (status, info) {
         console.log(status, info);
       });

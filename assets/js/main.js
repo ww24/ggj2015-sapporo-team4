@@ -32,8 +32,6 @@ $(function () {
 
     stage.addChild(game);
 
-    stage.addChild(jk);
-
     audio.promise.then(function (sounds) {
       // load leap motion controller
       var flag = true;
@@ -44,12 +42,15 @@ $(function () {
           sounds.pop.start(0);
           sounds.bgm.start(3, true);
 
+          jk.visible = true;
           jk_container.start();
         }
       }, function () {
         // blur
       });
+      jk.visible = false;
       stage.addChild(leap);
+      stage.addChild(jk);
     });
 
   });
