@@ -26,7 +26,7 @@ function leap_container(focus, blur) {
     function Hand(url) {
       this.initialize(url);
       this.regX = 444;
-      this.regY = 350;
+      this.regY = 450;
       this.scaleX = this.scaleY = 0.3;
       this.alpha = 0.8;
       this.visible = false;
@@ -46,7 +46,10 @@ function leap_container(focus, blur) {
       hand_def.userData = hand;
 
       var fixture = new Box2D.Dynamics.b2FixtureDef();
-      fixture.shape = new Box2D.Collision.Shapes.b2CircleShape(hand.regX * hand.scaleX);
+      fixture.shape = new Box2D.Collision.Shapes.b2CircleShape(hand.regX * hand.scaleX * world.SCALE);
+      fixture.density = 1000;
+      fixture.friction = 0.2;
+      fixture.restitution = 0.9;
 
       var body = world.CreateBody(hand_def);
       body.CreateFixture(fixture);
@@ -96,8 +99,8 @@ function leap_container(focus, blur) {
         hand_obj.rotation = rotation % 360;
 
         // physics
-        hand_bodies[+ is_left].SetPosition(hand_obj.x * world.SCALE, hand_obj.y * world.SCALE);
-        console.log(hand_obj.x * world.SCALE, hand_obj.y * world.SCALE);
+        var pos = new Box2D.Common.Math.b2Vec2(hand_obj.x * world.SCALE, hand_obj.y * world.SCALE);
+        hand_bodies[+ is_left].SetPosition(pos);
 
       }, function (status, info) {
         console.log(status, info);

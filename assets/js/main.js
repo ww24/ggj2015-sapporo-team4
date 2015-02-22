@@ -9,7 +9,7 @@ $(function () {
 
   var gravity = new Box2D.Common.Math.b2Vec2(0, 10);
   var world = new Box2D.Dynamics.b2World(gravity, true);
-  world.SCALE = 1 / 50;
+  world.SCALE = 1 / 30;
 
   // load containers
   var logo = logo_container();
@@ -43,7 +43,9 @@ $(function () {
           sounds.bgm.start(3, true);
 
           jk.visible = true;
-          jk_container.start();
+          setTimeout(function () {
+            jk_container.start();
+          }, 1000);
         }
       }, function () {
         // blur
@@ -58,9 +60,8 @@ $(function () {
   // 30 フレームおきに描画更新
   createjs.Ticker.setFPS(30);
   createjs.Ticker.on("tick", function (evt) {
-    stage.update();
-
     world.Step(evt.delta / 1000, 8, 3);
+
     var body = null;
     for (body = world.GetBodyList(); body !== null; body = body.GetNext()) {
       var obj = body.GetUserData();
@@ -71,6 +72,8 @@ $(function () {
         obj.rotation = body.GetAngle() / createjs.Matrix2D.DEG_TO_RAD;
       }
     }
+
+    stage.update();
   });
 
 });

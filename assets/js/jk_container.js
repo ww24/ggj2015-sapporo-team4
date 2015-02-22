@@ -22,10 +22,8 @@ function jk_container() {
     jk.x = 100;
     jk.y = 100;
     jk.scaleX = jk.scaleY = 0.3;
-    var w = jk.image.width * jk.scaleX;
-    var h = jk.image.height * jk.scaleY;
-    jk.regX = w / 2;
-    jk.regY = h / 2;
+    jk.regX = jk.image.width / 2;
+    jk.regY = jk.image.height / 2;
     container.addChild(jk);
 
     var jk_body_def = new Box2D.Dynamics.b2BodyDef();
@@ -35,7 +33,10 @@ function jk_container() {
 
     var jk_fixture = new Box2D.Dynamics.b2FixtureDef();
     jk_fixture.shape = new Box2D.Collision.Shapes.b2PolygonShape();
-    jk_fixture.shape.SetAsBox(jk.regX * world.SCALE, jk.regY * world.SCALE);
+    jk_fixture.shape.SetAsBox(jk.regX * jk.scaleX * world.SCALE, jk.regY * jk.scaleY * world.SCALE);
+    jk_fixture.density = 100;
+    jk_fixture.friction = 0.2;
+    jk_fixture.restitution = 0.99;
 
     jk_body = world.CreateBody(jk_body_def);
     jk_body.CreateFixture(jk_fixture);
