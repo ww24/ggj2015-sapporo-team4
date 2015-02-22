@@ -10,4 +10,10 @@
 }, {
   "id": "hand2_r",
   "src": "assets/images/hand/hand2_r.png"
+}, {
+  "id": "hand3_l",
+  "src": "assets/images/hand/hand3_l.png"
+}, {
+  "id": "hand3_r",
+  "src": "assets/images/hand/hand3_r.png"
 }]

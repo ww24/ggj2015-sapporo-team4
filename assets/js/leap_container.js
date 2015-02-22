@@ -2,10 +2,13 @@
  * Leap Motion Controller
  *
  */
-/* globals Leap, createjs, tutorial_container */
+/* globals Leap, Box2D, createjs, tutorial_container */
 /* exported leap_container */
 
 function leap_container(focus, blur) {
+  var world = this;
+
+  var tutorial = tutorial_container();
 
   var container = new createjs.Container();
 
@@ -16,8 +19,8 @@ function leap_container(focus, blur) {
 
   queue.addEventListener("complete", function () {
     var hands = {
-      left: [],
-      right: []
+      left: null,
+      right: null
     };
 
     function Hand(url) {
@@ -29,25 +32,27 @@ function leap_container(focus, blur) {
     }
     Hand.prototype = new createjs.Bitmap();
 
-    hands.left[0] = new Hand(queue.getResult("hand1_l"));
-    hands.left[0].x = 720;
-    hands.left[0].y = 500;
-    container.addChild(hands.left[0]);
+    hands.left = new Hand(queue.getResult("hand3_l"));
+    container.addChild(hands.left);
 
-    hands.right[0] = new Hand(queue.getResult("hand1_r"));
-    hands.right[0].x = 1200;
-    hands.right[0].y = 500;
-    container.addChild(hands.right[0]);
+    hands.right = new Hand(queue.getResult("hand3_r"));
+    container.addChild(hands.right);
 
-    hands.left[1] = new Hand(queue.getResult("hand2_l"));
-    hands.left[1].visible = false;
-    container.addChild(hands.left[1]);
+    var hand_bodies = [hands.right, hands.left].map(function (hand) {
+      var hand_def = new Box2D.Dynamics.b2BodyDef();
+      hand_def.position.Set(hand.x * world.SCALE, hand.y * world.SCALE);
+      hand_def.type = Box2D.Dynamics.b2Body.b2_staticBody;
+      hand_def.userData = hand;
 
-    hands.right[1] = new Hand(queue.getResult("hand2_r"));
-    hands.right[1].visible = false;
-    container.addChild(hands.right[1]);
+      var fixture = new Box2D.Dynamics.b2FixtureDef();
+      fixture.shape = new Box2D.Collision.Shapes.b2CircleShape(hand.regX * hand.scaleX);
 
-    var tutorial = tutorial_container();
+      var body = world.CreateBody(hand_def);
+      body.CreateFixture(fixture);
+      
+      return body;
+    });
+
     container.addChild(tutorial);
 
     var active_hand_length = 0;
@@ -62,24 +67,34 @@ function leap_container(focus, blur) {
 
       frame.hands.forEach(function (hand) {
         var type = hand.type;
-        var position = hand.screenPosition();
-        var roll = hand.roll();
-        var rotation = (360 - roll / Math.PI * 180) % 360;
-        var hand_list = [hands.left, hands.right][{left: 0, right: 1}[type]];
+        var hand_obj = [hands.left, hands.right][{left: 0, right: 1}[type]];
 
-        hand_list.forEach(function (hand, index) {
-          hand.x = Math.floor(position[0]) + 500;
-          hand.y = Math.floor(position[1]) + 1200;
-          hand.rotation = (rotation + index * ((type === "left") * 150 + (type === "right") * 210)) % 360;
-        });
-        
-        if (rotation > 110 && rotation < 250) {
-          hand_list[0].visible = false;
-          hand_list[1].visible = true;
-        } else {
-          hand_list[0].visible = true;
-          hand_list[1].visible = false;
+        // position
+        var position = hand.screenPosition();
+        hand_obj.x = Math.floor(position[0]) + 500;
+        hand_obj.y = Math.floor(position[1]) + 1200;
+
+        // rotation (rad -> deg)
+        var rotation = (360 - hand.roll() / createjs.Matrix2D.DEG_TO_RAD) % 360;
+        var dr = rotation;
+        var is_left = type === "left";
+        if (is_left) {
+          dr = 360 - rotation;
         }
+        if (dr >= 270 || dr < 60) {
+          rotation += (is_left * 2 - 1) * 40;
+          hand_obj.image = queue.getResult("hand1_" + type[0]);
+        } else if (dr >= 60 && dr < 140) {
+          rotation += (is_left * 2 - 1) * 110;
+          hand_obj.image = queue.getResult("hand2_" + type[0]);
+        } else {
+          rotation += (is_left * 2 - 1) * 180;
+          hand_obj.image = queue.getResult("hand3_" + type[0]);
+        }
+        hand_obj.rotation = rotation % 360;
+
+        // physics
+        hand_bodies[+ is_left].SetPosition(hand_obj.x * world.SCALE, hand_obj.y * world.SCALE);
         
       }, function (status, info) {
         console.log(status, info);
