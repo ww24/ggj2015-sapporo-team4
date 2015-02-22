@@ -49,7 +49,7 @@ function leap_container(focus, blur) {
 
       var body = world.CreateBody(hand_def);
       body.CreateFixture(fixture);
-      
+
       return body;
     });
 

@@ -5,7 +5,6 @@
 /* globals createjs */
 /* exported game_container */
 
-
 function game_container() {
   var container = new createjs.Container();
 

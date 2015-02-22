@@ -2,6 +2,8 @@
  * Logo Contaienr
  *
  */
+/* globals createjs */
+/* exported logo_container */
 
 function logo_container() {
 
@@ -17,6 +19,6 @@ function logo_container() {
     logo.x = logo.y = 0;
     container.addChild(logo);
   });
-  
+
   return container;
 }

@@ -36,7 +36,7 @@ function jk_container() {
     var jk_fixture = new Box2D.Dynamics.b2FixtureDef();
     jk_fixture.shape = new Box2D.Collision.Shapes.b2PolygonShape();
     jk_fixture.shape.SetAsBox(jk.regX * world.SCALE, jk.regY * world.SCALE);
-    
+
     jk_body = world.CreateBody(jk_body_def);
     jk_body.CreateFixture(jk_fixture);
   });
